@@ -5,8 +5,6 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Optional;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class S3Service {
     this.s3Client = s3Client;
   }
 
-  public void uploadImage(MultipartFile file, Long postId) {
+  public void uploadImage(MultipartFile file, Long userId) {
     String originalFileName = file.getOriginalFilename();
     String fileType = file.getContentType();
 
@@ -45,7 +43,7 @@ public class S3Service {
       }
 
       // 저장 파일명 중복방지 고유명으로 변경
-      String newFileName = generateUniqueFileName(originalFileName, postId);
+      String newFileName = generateUniqueFileName(originalFileName, userId);
 
       // MultipartFile -> File
       File uploadfile = convert(file).orElseThrow(() ->
@@ -72,17 +70,17 @@ public class S3Service {
     return Optional.empty();
   }
 
-  public File multipartFileToFile(MultipartFile multipartFile, String newFileName)
-      throws IOException {
-    File file = new File(newFileName);
-    multipartFile.transferTo(file);
-    return file;
-  }
+//  public File multipartFileToFile(MultipartFile multipartFile, String newFileName)
+//      throws IOException {
+//    File file = new File(newFileName);
+//    multipartFile.transferTo(file);
+//    return file;
+//  }
 
-  private String generateUniqueFileName(String orginalFileName, Long postId) {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-    String timeStamp = dateFormat.format(new Date());
-    return timeStamp + "_" + postId + "_" + orginalFileName;
+  private String generateUniqueFileName(String orginalFileName, Long userId) {
+//    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+//    String timeStamp = dateFormat.format(new Date());
+    return userId + "_" + orginalFileName;
   }
 
 

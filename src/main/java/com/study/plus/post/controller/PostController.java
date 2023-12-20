@@ -9,6 +9,7 @@ import com.study.plus.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,14 +40,9 @@ public class PostController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<PostResponseDto>> getPosts(
-      @RequestParam("page") int page,
-      @RequestParam("size") int size,
-      @RequestParam("sortBy") String sortBy,
-      @RequestParam("isAsc") boolean isAsc,
-      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+  public ResponseEntity<Page<PostResponseDto>> getPosts(Pageable pageable) {
     return ResponseEntity.ok()
-        .body(postService.getPosts(page - 1, size, sortBy, isAsc, userDetails));
+        .body(postService.getPosts(pageable));
   }
 
   @GetMapping("/{postId}")

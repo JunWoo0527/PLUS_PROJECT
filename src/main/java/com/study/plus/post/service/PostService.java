@@ -4,14 +4,14 @@ import com.study.plus.post.dto.PostRequestDto;
 import com.study.plus.post.dto.PostResponseDto;
 import com.study.plus.security.UserDetailsImpl;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 public interface PostService {
 
   void createPost(PostRequestDto postRequestDto, UserDetailsImpl userDetails);
 
-  Page<PostResponseDto> getPosts(int page, int size, String sortBy, boolean isAsc,
-      UserDetailsImpl userDetails);
+  Page<PostResponseDto> getPosts(Pageable pageable);
 
   PostResponseDto getPost(Long postid);
 

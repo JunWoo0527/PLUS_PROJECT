@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,5 +62,12 @@ public class PostController {
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     postService.updatePost(postId, postRequestDto, userDetails);
     return ResponseEntity.ok().body(new SuccessResponse(ResponseCode.SUCCESS_UPDATEPOST));
+  }
+
+  @DeleteMapping("/{postId}")
+  public ResponseEntity<SuccessResponse> deletePost(@PathVariable("postId") Long postId,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    postService.deletePost(postId, userDetails);
+    return ResponseEntity.ok().body(new SuccessResponse(ResponseCode.SUCCESS_DELETEPOST));
   }
 }

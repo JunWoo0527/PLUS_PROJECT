@@ -47,25 +47,39 @@ public class PostServiceImpl implements PostService {
   }
 
   public PostResponseDto getPost(Long postId) {
-    Post post = postRepository.findById(postId).orElseThrow(() ->
-        new IllegalArgumentException("해당 게시글이 존재하지않습니다.")
-    );
+    Post post = existPostInDBById(postId);
     return new PostResponseDto(post);
   }
 
+  @Transactional
   public void updatePost(Long postId, PostRequestDto postRequestDto, UserDetailsImpl userDetails) {
-    String username = userDetails.getUsername();
+    String userNickname = userDetails.getUsername();
+    Post post = existPostInDBById(postId);
 
-    Post post = postRepository.findById(postId).orElseThrow(() ->
-        new IllegalArgumentException("해당 게시글이 존재하지않습니다.")
-    );
-
-    userService.sameUserInDBByNickname(username);
-    if (!username.equals(post.getUser())) {
+    if (!userNickname.equals(post.getUser().getNickname())) {
       throw new IllegalArgumentException("본인이 작성한 게시글만 수정 할 수 있습니다.");
     }
 
     post.update(postRequestDto);
     postRepository.save(post);
+  }
+
+  @Transactional
+  public void deletePost(Long postId, UserDetailsImpl userDetails) {
+    String userNickname = userDetails.getUsername();
+    Post post = existPostInDBById(postId);
+
+    if (!userNickname.equals(post.getUser().getNickname())) {
+      throw new IllegalArgumentException("본인이 작성한 게시글만 삭제 할 수 있습니다.");
+    }
+
+    postRepository.delete(post);
+  }
+
+  private Post existPostInDBById(Long postId) {
+    Post post = postRepository.findById(postId).orElseThrow(() ->
+        new IllegalArgumentException("해당 게시글이 존재하지않습니다.")
+    );
+    return post;
   }
 }

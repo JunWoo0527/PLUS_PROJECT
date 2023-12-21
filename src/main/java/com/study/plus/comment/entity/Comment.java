@@ -1,5 +1,6 @@
 package com.study.plus.comment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.study.plus.comment.dto.CommentRequestDto;
 import com.study.plus.global.entity.BaseTimeEntity;
 import com.study.plus.post.entity.Post;
@@ -33,15 +34,11 @@ public class Comment extends BaseTimeEntity {
   @Column
   private String content;
 
-  @Column
-  private String nickname;
-
   /**
    * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
    */
   public Comment(CommentRequestDto commentRequestDto, Post post, UserDetailsImpl userDetails) {
     this.content = commentRequestDto.getContent();
-    this.nickname = user.getNickname();
     this.post = post;
     this.user = userDetails.getUser();
   }
@@ -50,10 +47,12 @@ public class Comment extends BaseTimeEntity {
    * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
    */
   @ManyToOne
+  @JsonIgnore
   @JoinColumn(name = "post_id")
   private Post post;
 
   @ManyToOne
+  @JsonIgnore
   @JoinColumn(name = "user_id")
   private User user;
 

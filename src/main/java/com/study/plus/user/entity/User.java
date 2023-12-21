@@ -32,6 +32,9 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column
+  private String profileImage;
+
   @Column(nullable = false, unique = true)
   private String nickname;
 
@@ -45,8 +48,6 @@ public class User {
   @Enumerated(value = EnumType.STRING)
   private UserRoleEnum role;
 
-  @Column(nullable = false)
-  private String profileImage;
 
   /**
    * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
@@ -56,6 +57,7 @@ public class User {
     this.password = password;
     this.email = email;
     this.role = role;
+    this.profileImage = "Empty";
   }
 
   /**

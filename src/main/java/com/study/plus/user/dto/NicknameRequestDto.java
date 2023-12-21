@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class NicknameRequestDto {
 
-    String nickname;
+  String nickname;
 }

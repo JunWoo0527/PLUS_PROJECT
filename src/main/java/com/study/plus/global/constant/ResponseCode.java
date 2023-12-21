@@ -21,11 +21,10 @@ public enum ResponseCode {
   SUCCESS_UPDATEPOST(OK, "게시글의 내용이 수정되었습니다."),
 
   SUCCESS_CREATECOMMENT(CREATED, "댓글이 게시가 성공하였습니다."),
+  SUCCESS_UPDATECOMMENT(OK, "댓글이 수정되었습니다."),
   SUCCESS_DELETECOMMENT(OK, "댓글이 삭제되었습니다."),
-  SUCCESS_UPDATECOMMENT(OK, "게시글의 내용이 수정되었습니다."),
 
   SUCCESS_UPLOADIMAGE(OK, "이미지가 업로드되었습니다."),
-
 
   SUCCESS_EDITPROFILE(OK, "내정보 수정이 성공하였습니다.");
 

@@ -4,12 +4,14 @@ import com.study.plus.global.constant.ResponseCode;
 import com.study.plus.global.dto.SuccessResponse;
 import com.study.plus.post.dto.PostRequestDto;
 import com.study.plus.post.dto.PostResponseDto;
+import com.study.plus.post.entity.Post;
 import com.study.plus.post.service.PostServiceImpl;
 import com.study.plus.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,9 +35,10 @@ public class PostController {
   public ResponseEntity<SuccessResponse> createPost(
       @Valid @RequestBody PostRequestDto postRequestDto,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-    postService.createPost(postRequestDto, userDetails);
+    Post post = postService.createPost(postRequestDto, userDetails);
 
-    return ResponseEntity.status(201).body(new SuccessResponse(ResponseCode.SUCCESS_CREATEPOST));
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(new SuccessResponse(ResponseCode.SUCCESS_CREATEPOST, new PostResponseDto(post)));
 
   }
 
@@ -60,9 +63,20 @@ public class PostController {
   }
 
   @DeleteMapping("/{postId}")
-  public ResponseEntity<SuccessResponse> deletePost(@PathVariable("postId") Long postId,
+  public ResponseEntity<SuccessResponse> deletePost(
+      @PathVariable("postId") Long postId,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     postService.deletePost(postId, userDetails);
     return ResponseEntity.ok().body(new SuccessResponse(ResponseCode.SUCCESS_DELETEPOST));
   }
+
+  @PostMapping("/{postId}")
+  public ResponseEntity<SuccessResponse> likePost(
+      @PathVariable("postId") Long postId,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    Post post = postService.likePost(postId, userDetails);
+    return ResponseEntity.ok()
+        .body(new SuccessResponse(ResponseCode.SUCCESS_LIKEPOST, new PostResponseDto(post)));
+  }
+
 }

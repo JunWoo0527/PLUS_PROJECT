@@ -2,6 +2,7 @@ package com.study.plus.post.service;
 
 import com.study.plus.post.dto.PostRequestDto;
 import com.study.plus.post.dto.PostResponseDto;
+import com.study.plus.post.entity.Post;
 import com.study.plus.security.UserDetailsImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostService {
 
-  void createPost(PostRequestDto postRequestDto, UserDetailsImpl userDetails);
+  Post createPost(PostRequestDto postRequestDto, UserDetailsImpl userDetails);
 
   Page<PostResponseDto> getPosts(Pageable pageable);
 
@@ -18,4 +19,6 @@ public interface PostService {
   void updatePost(Long postId, PostRequestDto postRequestDto, UserDetailsImpl userDetails);
 
   void deletePost(Long postId, UserDetailsImpl userDetails);
+
+  Post likePost(Long postId, UserDetailsImpl userDetails);
 }

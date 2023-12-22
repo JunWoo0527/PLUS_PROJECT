@@ -3,8 +3,14 @@
  - Gradle 1.1.4
  - Java 17
 
+## 사용기술 ##
+
+ - Redis (ver:3.0.504) : Google Eamil 인증 
+ - S3 : User profile 이미지 저장소
+ - JWT : AccessToken(인증) & RefreshToken(ATK 만료시 재발급)
+
 ## 의존성 목록 ##
-dependencies {
+    dependencies {
 
     //Mail
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
@@ -38,13 +44,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-}
+    }
 
-## 사용기술 ##
-
- - Redis (ver:3.0.504) : Google Eamil 인증 
- - S3 : User profile 이미지 저장소
- - JWT : AccessToken(인증) & RefreshToken(ATK 만료시 재발급)
+## PostMan 테스트 ##
+https://documenter.getpostman.com/view/30858015/2s9YkraerH
 
 
 ## 구현 목록 ##

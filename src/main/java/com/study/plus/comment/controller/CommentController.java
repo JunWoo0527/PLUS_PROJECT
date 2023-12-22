@@ -8,10 +8,13 @@ import com.study.plus.global.constant.ResponseCode;
 import com.study.plus.global.dto.SuccessResponse;
 import com.study.plus.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,6 +40,15 @@ public class CommentController {
     return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessResponse(
         ResponseCode.SUCCESS_CREATECOMMENT, new CommentResponseDto(comment)));
   }
+
+  @GetMapping("/{postId}")
+  public ResponseEntity<Page<CommentResponseDto>> getComments(
+      @PathVariable("postId") Long postId,
+      Pageable pageable
+  ) {
+    return ResponseEntity.ok().body(commentService.getComments(postId, pageable));
+  }
+
 
   @PutMapping("/{postId}")
   public ResponseEntity<SuccessResponse> updateComment(

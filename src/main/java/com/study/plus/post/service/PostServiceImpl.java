@@ -35,7 +35,6 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  @Transactional(readOnly = true)
   public Page<PostResponseDto> getPosts(Pageable pageable) {
     Page<Post> postList = postRepository.findAll(pageable);
 

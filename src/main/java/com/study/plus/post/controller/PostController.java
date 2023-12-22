@@ -31,7 +31,7 @@ public class PostController {
   private final PostServiceImpl postService;
 
 
-  @PostMapping
+  @PostMapping("")
   public ResponseEntity<SuccessResponse> createPost(
       @Valid @RequestBody PostRequestDto postRequestDto,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -42,7 +42,7 @@ public class PostController {
 
   }
 
-  @GetMapping
+  @GetMapping("")
   public ResponseEntity<Page<PostResponseDto>> getPosts(Pageable pageable) {
     return ResponseEntity.ok()
         .body(postService.getPosts(pageable));

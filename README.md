@@ -1,6 +1,48 @@
+## 사용버전 ##
+ - SpringBoot 3.1.6
+ - Gradle 1.1.4
+ - Java 17
+
+## 의존성 목록 ##
+dependencies {
+
+    //Mail
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
+
+    //Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    //Spring-Boot-Starter
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //S3
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    //MySQL
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    //JWT
+    compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+    //Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+}
+
 ## 사용기술 ##
 
- - Redis : Google Eamil 인증 
+ - Redis (ver:3.0.504) : Google Eamil 인증 
  - S3 : User profile 이미지 저장소
  - JWT : AccessToken(인증) & RefreshToken(ATK 만료시 재발급)
 

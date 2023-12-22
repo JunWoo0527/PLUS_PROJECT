@@ -21,12 +21,13 @@ public class S3Controller {
   }
 
   @PostMapping("/{userId}")
-  public ResponseEntity<SuccessResponse> uploadImage(
+  public ResponseEntity<SuccessResponse> uploadProfileImage(
       @PathVariable("userId") Long userId,
       @RequestParam(value = "file") MultipartFile file) {
 
-    service.uploadImage(file, userId);
-    return ResponseEntity.ok().body(new SuccessResponse(ResponseCode.SUCCESS_UPLOADIMAGE));
+    String imageURL = service.uploadProfileImage(file, userId);
+    return ResponseEntity.ok()
+        .body(new SuccessResponse(ResponseCode.SUCCESS_UPLOADIMAGE, imageURL));
   }
 
 }

@@ -19,8 +19,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: derset0527@gmail.com
-    password: kuwpdllzdodmdqvx
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -31,13 +31,13 @@ spring:
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
-    auth-code-expiration-millis: 300000 # 5 * 60 * 1000 == 5분
+    auth-code-expiration-millis: 300000 # 5 * 60 * 1000 == 5분   // 메일 만료시간
 
 cloud:
   aws:
     credentials:
-      accessKey: AKIASJK7YUGN2S5ELR4W
-      secretKey: 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
+      accessKey: ${AWS_ACCESSKEY}
+      secretKey: ${AWS_SECRETKEY}
     region:
       static: ap-northeast-2
     stack:
@@ -45,10 +45,10 @@ cloud:
 
 application:
   bucket:
-    name: myplusbucket
+    name: ${BUCKET_NAME}
 
 redis:
-  host: localhost
+  host: ${DB_HOST}
   port: 6379
 
 jwt:

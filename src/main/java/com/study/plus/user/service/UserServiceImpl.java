@@ -86,10 +86,21 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  public User findUserInDBById(Long id) {
+    User user = userRepository.findById(id).orElseThrow(() ->
+        new IllegalArgumentException("해당 유저가 존재하지 않습니다.")
+    );
+    return user;
+  }
+
   public void sameUserInDBByEmail(String email) {
     if (userRepository.existsUserByEmail(email)) {
       throw new IllegalArgumentException("이미 가입된 이메일이 존재합니다.");
     }
+  }
+
+  public void saveUserInDB(User user) {
+    userRepository.save(user);
   }
 
   public void sendCodeToEmail(MailRequestDto mailRequestDto) {

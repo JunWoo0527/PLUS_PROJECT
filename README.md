@@ -1,6 +1,6 @@
 ## 사용기술 ##
 
- - Redis : Eamil 인증 
+ - Redis : Google Eamil 인증 
  - S3 : User profile 이미지 저장소
  - JWT : AccessToken(인증) & RefreshToken(ATK 만료시 재발급)
 
